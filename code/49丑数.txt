@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int GetUglyNumber_Solution(int n) {
+        if(n < 7) return n;
+        vector<int> chou(1,1);
+        int i = 0, j = 0, k = 0;
+        while(-- n)//Ñ­»·n-1´Î
+        {
+            int t = min(chou[i] * 2, min(chou[j] * 3, chou[k] * 5));
+            chou.push_back(t);
+            if(t == chou[i] * 2) i ++;//SI  2
+            if(t == chou[j] * 3) j ++;//SJ  3
+            if(t == chou[k] * 5) k ++;//SK  5
+        }
+        
+        return chou.back();
+    }
+};

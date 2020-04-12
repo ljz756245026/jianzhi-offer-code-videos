@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    //例子
+    //输入：1, 2, 3, 4
+    //输出：1,1.5,2,2.5
+    
+    //大小根堆
+    //小根堆 较大的数字 最小的是根节点
+    //大根堆 较小的数字 最大的是根节点
+    //大根堆 - 小根堆 = 1/0
+    
+    priority_queue<int> maxheap;
+    priority_queue<int, vector<int>, greater<int>> minheap;
+    
+    void Insert(int num)
+    {
+        //都无脑先插入 大根堆
+        maxheap.push(num);
+        
+        //大根堆 - 小根堆 = 1/0
+        if(maxheap.size() - minheap.size() > 1)
+        {
+            //从大根堆中拿最大的元素到小根堆
+            minheap.push(maxheap.top());
+            maxheap.pop();
+        }
+        
+        //插入的元素较大
+        //大根堆的根  > 小根堆的根 
+        //交换
+        while(minheap.size() && maxheap.top() > minheap.top())
+        {
+            int max = maxheap.top(), min = minheap.top();
+            maxheap.pop(), minheap.pop();
+            maxheap.push(min), minheap.push(max);
+        }
+    }
+
+    double GetMedian()
+    { 
+        //奇数
+        if((maxheap.size() + minheap.size()) % 2 == 1) return maxheap.top();
+        //偶数
+        return (maxheap.top() + minheap.top()) /2.0;
+    }
+
+};

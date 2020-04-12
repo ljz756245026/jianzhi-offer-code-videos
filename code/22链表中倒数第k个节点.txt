@@ -1,0 +1,21 @@
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* head, unsigned int k) {
+        int n = 0;
+        for(ListNode* p = head; p; p = p -> next) n ++;
+        
+        if(k > n) return nullptr;
+        ListNode* p = head;
+        for(int i = 0; i < n - k; i ++) p = p -> next;
+        
+        return p;
+    }
+};

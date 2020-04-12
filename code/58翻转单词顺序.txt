@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string ReverseSentence(string str) {
+        //翻转所有字符
+        reverse(str.begin(), str.end());
+        //翻转单个单词
+        for(int i = 0; i < str.size(); i ++)
+        {
+            int j = i;
+            while(j < str.size() && str[j] != ' ') j ++;
+            //翻转单个单词
+            reverse(str.begin() + i, str.begin() + j);
+            i = j;
+        }
+        
+        return str;
+    }
+};

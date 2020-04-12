@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int FirstNotRepeatingChar(string str) {
+        //针对第一次出现的字符/数字
+        unordered_map<char, int> hash;
+        for(auto c : str) hash[c] ++;
+        
+        int res = -1;
+        int index = 0;
+        for(auto c : str)
+        {
+            if(hash[c] == 1)
+            {
+                res = index;
+                break;
+            }
+            index ++;
+        }
+        
+        return res;
+    }
+};

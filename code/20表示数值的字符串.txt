@@ -1,0 +1,62 @@
+class Solution {
+public:
+    bool isNumeric(char* string)
+    {
+        /*思路
+        1. 连续..  no
+        2.  e. no
+        3. 连续 ee  EE   no
+        4. e '\0'  no
+        */
+        if(string == NULL)
+            return false;
+        if(*string == '-' || *string == '+')
+        {
+            string ++;
+            if(*string == '-' || *string == '+')
+                return false; //+-15
+        }
+        //+-
+        if(*string == '\0')
+            return false;
+        
+        int dot = 0, e = 0, num = 0;
+        while(*string  != '\0')
+        {
+            if(*string >= '0' && *string <= '9')
+            {
+                string ++;
+                num ++;
+            }
+            else if(*string == '.')
+            {
+                //..  10e3.4
+                if(dot > 0 || e > 0)
+                    return false;
+                string ++;
+                dot ++;
+            }
+            //E
+            else if(*string == 'e' || *string == 'E')
+            {
+                // e10  10e10e
+                if(num == 0 || e > 0)
+                    return false;
+                string ++;
+                e ++;
+                if(*string == '-' || *string == '+')
+                {
+                    string ++;//10e-10
+                    //10e--10
+                    if(*string == '-' || *string == '+')
+                        return false;
+                }
+                if(*string == '\0')//10e
+                    return false;
+            }
+            else //as10
+                return false;
+        }
+        return true;
+    }
+};

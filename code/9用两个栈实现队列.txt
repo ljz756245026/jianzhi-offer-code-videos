@@ -1,0 +1,36 @@
+class Solution
+{
+public:
+    //先进后出  杯子 栈
+    //先进先出  管道 队列
+    
+    
+    void push(int node) {
+        stack1.push(node);
+    }
+    
+    void copy(stack<int> &a, stack<int> &b)
+    {
+        while(a.size())
+        {
+            b.push(a.top());
+            a.pop();
+        }
+    }
+    
+    int pop() {
+        //1 ——》 2
+        // 2 top  pop
+        // 2 ——》 1
+        copy(stack1, stack2);
+        int res = stack2.top();
+        stack2.pop();
+        copy(stack2, stack1);
+        
+        return res;
+    }
+
+private:
+    stack<int> stack1;
+    stack<int> stack2;
+};

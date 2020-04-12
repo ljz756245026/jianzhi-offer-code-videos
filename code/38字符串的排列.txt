@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<string> res;
+    string path;
+    
+    vector<string> Permutation(string str) {
+        if(str == "") return res;  //[""] []
+        //全排列
+        //可能重复字母 靠在一起 好判断
+        sort(str.begin(),str.end());
+        path.resize(str.size());
+        //全排列函数
+        dfs(str, 0, 0, 0);
+        
+        //字典顺序
+        sort(res.begin(), res.end());
+        return res;
+    }
+    
+    void dfs(string &str, int idx, int start, int state)
+    {
+        //已经找到一个排列
+        if(idx == str.size())
+        {
+            res.push_back(path);
+            return;
+        }
+        //单个排列没有排完
+        //相同字母而言 前后关系  
+        //可能重复排序
+        //通过控制相对顺序不变确保不重复
+        if(idx == 0 || str[idx] != str[idx - 1]) start = 0;
+        //顺序往后
+        for(int i = start; i < str.size(); i ++)
+            if(!(state >> i & 1))
+            {
+                path[i] = str[idx];
+                dfs(str, idx + 1, i + 1, state + (1 << i));
+            }
+    }
+};

@@ -1,0 +1,31 @@
+class Solution {
+public:
+    //后续遍历  左右根
+    //二叉搜索树特点  左孩子 < 父亲结点 < 右孩子
+    //左右根    
+    //数组最后一个数字就是根节点/父亲结点 
+    //左右子树分界点  与根节点相比较
+    vector<int> seq;
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        seq = sequence;
+        if(seq.empty()) return false;
+        return dfs(0, seq.size() - 1);
+    }
+    
+    bool dfs(int l, int r)
+    {
+        if(l >= r) return true;
+        
+        //父亲结点
+        int father = seq[r];
+        //左子树 都小于
+        int k = l;
+        while(k < r && seq[k] < father) k ++;
+        //右子树 都大于
+        for(int i = k; i < r; i ++)
+            if(seq[i] < father)
+                return false;
+        
+        return dfs(l, k - 1) && dfs(k, r - 1);
+    }
+};

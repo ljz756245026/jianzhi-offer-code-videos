@@ -1,0 +1,9 @@
+class Solution {
+public:
+    double Power(double base, int e) {
+        double res = 1;
+        for(int i = 0; i < abs(e); i ++) res *= base;
+        if(e < 0) res = 1 / res;
+        return res;
+    }
+};

@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    int merge(vector<int> &nums, int l, int r)
+    {
+        //[              ]
+        //[  i   mid][mid + 1    j   ]
+        // mid - i + 1
+        if(l >= r) return 0;
+        int mid = (l + r) / 2;
+        int res = (merge(nums, l, mid) + merge(nums, mid + 1, r)) % 1000000007;
+        int i = l, j = mid + 1;
+        vector<int> temp; //记录当前归并时候最终有序的数组
+        //归并的过程
+        while(i <= mid && j <= r)
+        {
+            if(nums[i] <= nums[j]) temp.push_back(nums[i ++]);
+            else{
+                //逆序对
+                temp.push_back(nums[j ++]);
+                (res += mid - i + 1) %= 1000000007;
+            }
+        }
+        //存在某个区间没有比较完毕，直接push
+        while(i <= mid) temp.push_back(nums[i ++]);
+        while(j <= r) temp.push_back(nums[j ++]);
+        
+        i = l;
+        for(auto x : temp) nums[i ++] = x;
+        
+        return res;
+    }
+    
+    
+    int InversePairs(vector<int> data) {
+        return merge(data, 0, data.size() - 1);
+    }
+};
