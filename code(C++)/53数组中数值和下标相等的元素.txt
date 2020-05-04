@@ -1,0 +1,40 @@
+假设一个单调递增的数组里的每个元素都是整数并且是唯一的。
+请编程实现一个函数找出数组中任意一个数值等于其下标的元素。
+例如，在数组[-3, -1, 1, 3, 5]中，数字3和它的下标相等。
+样例
+输入：[-3, -1, 1, 3, 5]
+输出：3
+注意:如果不存在，则返回-1。
+
+来自 <https://www.acwing.com/problem/content/65/> 
+class Solution {
+public:
+    int getNumberSameAsIndex(vector<int>& nums) {
+        //暴力解答 n
+        // int i = 0;
+        // for(i = 0; i < nums.size(); i ++)
+        // {
+        //     if(nums[i] == i)
+        //     {
+        //         return i;
+        //     }
+        // }
+        
+        // return -1;
+        
+        //二分 log n
+        // i - 1    i       i + 1
+        // nums1   numsi    nums2
+        //  <0     0        >= 0
+        int l = 0, r = nums.size() - 1;
+        while(l < r)
+        {
+            int mid = l + r >> 1;
+            if(nums[mid] - mid >= 0) r = mid;
+            else l = mid + 1;
+        }
+        if(nums[l] == l) return l;
+        return -1;
+    }
+};
+

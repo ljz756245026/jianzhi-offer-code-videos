@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> maxInWindows(const vector<int>& num, unsigned int size)
+    {
+        vector<int> res; // num[i]
+        //双向队列 pop
+        deque<int> q;//保存num 中的index
+        for(int i = 0; i < num.size(); i ++)
+        {
+            //队头什么时候出队
+            while(!q.empty() && i - q.front() >= size) q.pop_front();
+            //维护一个队列的单调性
+            //4,2,6
+            //q 0 1 newindex
+            //什么时候pop队尾
+            //当新进来的index对应的值比队尾的值>=  队尾pop
+            while(!q.empty() && num[i] >= num[q.back()]) q.pop_back();
+            
+            q.push_back(i);//每次都push  index
+            
+            //i >= size - 1
+            //i从0开始
+            if(i >= size - 1) res.push_back(num[q.front()]);
+        }
+        return res;
+    }
+};

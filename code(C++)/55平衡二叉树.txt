@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool res = true;
+    bool IsBalanced_Solution(TreeNode* root) {
+        dfs(root);
+        return res;
+    }
+    
+    int dfs(TreeNode* root)
+    {
+        if(!root) return 0;
+        int left = dfs(root -> left), right = dfs(root -> right);
+        if(abs(left - right) > 1) res = false;
+        return max(left, right) + 1;
+    }
+};

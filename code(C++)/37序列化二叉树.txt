@@ -1,0 +1,73 @@
+
+/*
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+    TreeNode(int x) :
+            val(x), left(NULL), right(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    char* Serialize(TreeNode *root) {    
+        string res;
+        dfs1(root, res);
+        char* p = new char[res.size() + 1];
+        strcpy(p, res.c_str());
+        
+        return p;
+    }
+    
+    void dfs1(TreeNode* root, string &res)
+    {
+        if(!root)
+        {
+            //#
+            res += "#,";
+            return;
+        }
+        
+        res += to_string(root -> val) + ",";
+        dfs1(root -> left, res);
+        dfs1(root -> right, res);
+    }
+    
+    //反序列化
+    TreeNode* Deserialize(char *str) {
+        int idx = 0;
+        return dfs2(str, idx);
+    }
+    
+    TreeNode* dfs2(char* str, int &idx)
+    {
+        //确定长度  23  长度2  3 长度1
+        int len = idx;
+        while(str[len] != ',') len ++;
+        //空结点
+        if(str[idx] == '#')
+        {
+            idx = len + 1;
+            return NULL;
+        }
+        //非空结点
+        //计算数值
+        int num = 0;
+        //考虑符号+-
+        int sign = 1;
+        if(idx < len && str[idx] == '-') sign = -1, idx ++;
+        // ‘234’
+        for(int i = idx; i < len; i ++) num = num * 10 + str[i] - '0';
+        num *= sign;
+        //idx走到下一个数字
+        idx = len + 1;
+        //构建树
+        auto root = new TreeNode(num);
+        root -> left = dfs2(str, idx);
+        root -> right = dfs2(str, idx);
+        
+        return root;
+    }
+    
+};

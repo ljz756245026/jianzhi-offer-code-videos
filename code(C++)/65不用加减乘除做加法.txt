@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int Add(int num1, int num2)
+    {
+        // & ^
+        //^ 相同 0   不同1
+        //0^0  1  1^1 0  0^ 1 1
+        //利用这个性质，我们能够得到32位2进制中 不进1的位置
+        //1  0^0  0^1
+        //找到进1的位置
+        // 1 & 1 = 1
+        while(num2)
+        {
+            int sum = num1 ^ num2;
+            int carry = (unsigned int)(num1 & num2) << 1;
+            num1 = sum;
+            num2 = carry;
+        }
+        //out = sum + carry
+        return num1;
+
+    }
+};

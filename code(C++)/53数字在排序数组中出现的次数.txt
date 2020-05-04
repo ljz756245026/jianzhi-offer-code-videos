@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int GetNumberOfK(vector<int> data ,int k) {
+        //¶þ·Ö
+        //left ×ó±ß < k  ÓÒ±ß >=k
+        //right ×ó±ß <=k ÓÒ±ß > k
+        //right - left + 1
+        if(data.empty()) return 0;
+        //¶þ·Ö
+        int l = 0, r = data.size() - 1;
+        //ÕÒ×ó¶Ëµã
+        while(l < r)
+        {
+            int mid = (l + r) / 2;
+            if(data[mid] < k) l = mid + 1;
+            else r = mid;
+        }
+        
+        if(data[l] != k) return 0;
+        int left = l;
+        
+        //ÕÒÓÒ¶Ëµã
+        l = 0, r = data.size() - 1;
+        while(l < r)
+        {
+            int mid = (l + r + 1) / 2;
+            if(data[mid] <= k) l = mid;
+            else r = mid - 1;
+        }
+        
+        int right = r;
+        
+        return right - left + 1;
+    }
+};
+
+
+
+
+
+
+
+
+

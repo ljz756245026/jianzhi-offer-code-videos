@@ -1,0 +1,25 @@
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* ReverseList(ListNode* pHead) {
+        //找到前驱结点
+        ListNode* pre = nullptr;
+        
+        auto cur = pHead;
+        while(cur)
+        {
+            auto next = cur -> next;
+            cur -> next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+};

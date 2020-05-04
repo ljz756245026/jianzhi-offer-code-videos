@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int> > FindContinuousSequence(int sum) {
+        //单调性
+        //i j  sum   i+1 j sum-i
+        //i变大 j变大
+        vector<vector<int> > res;
+        for(int i = 1, j = 1, s = 1; i < sum; i ++)
+        {
+            while(s < sum) j ++, s += j;
+            if(s == sum && j - i > 0)
+            {
+                //i j序列压入
+                vector<int> line;
+                for(int k = i; k <= j; k ++) line.push_back(k);
+                res.push_back(line);
+            }
+            s -= i;
+        }
+        
+        return res;
+        
+    }
+};
