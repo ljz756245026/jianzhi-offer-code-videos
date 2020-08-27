@@ -1,8 +1,0 @@
-class Solution {
-public:
-    int Sum_Solution(int n) {
-        int res = n;
-        (n > 0) &&  (res += Sum_Solution(n - 1));
-        return res;
-    }
-};
