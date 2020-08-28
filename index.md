@@ -5,9 +5,9 @@
 或者B站搜索： 扶我起来继续study
 
 推荐线上编程平台
-ACWing: [Link](https://www.acwing.com/activity/content/punch_the_clock/5/)
+ [ACWing](https://www.acwing.com/activity/content/punch_the_clock/5/)
 
-牛客网：[Link](https://www.nowcoder.com/ta/coding-interviews)
+[牛客网](https://www.nowcoder.com/ta/coding-interviews)
 
-leetcode：[Link](https://leetcode-cn.com/problemset/lcof/)
+[leetcode](https://leetcode-cn.com/problemset/lcof/)
 
